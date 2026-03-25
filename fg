@@ -1,0 +1,30 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+local HttpService = game:GetService("HttpService")
+
+local function getGamePasses(placeId)
+    local url = string.format("https://games.roblox.com/v1/games/%d/game-passes?limit=100", placeId)
+    local success, response = pcall(function()
+        return HttpService:GetAsync(url)
+    end)
+    if not success then
+        warn("Failed to get game passes: " .. tostring(response))
+        return nil
+    end
+
+    local data = HttpService:JSONDecode(response)
+    return data.data
+end
+
+-- Replace with your Roblox game's PlaceId
+local placeId = 1234567
+
+local gamePasses = getGamePasses(placeId)
+if gamePasses then
+    for _, pass in ipairs(gamePasses) do
+        print(string.format("Game Pass Name: %s, ID: %d, Price: %d Robux", pass.name, pass.id, pass.priceInRobux))
+    end
+else
+    print("No game passes found or failed to retrieve.")
+end
