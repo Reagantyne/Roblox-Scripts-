@@ -18,7 +18,7 @@ local function getGamePasses(placeId)
 end
 
 -- Replace with your Roblox game's PlaceId
-local placeId = 1234567
+local placeId = 4572547530
 
 local gamePasses = getGamePasses(placeId)
 if gamePasses then
